@@ -1,7 +1,8 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
 const Creator = require("../models/Creator")
-const generateToken = require("../middlewares/tokenGenerator")
+const { generateToken, generateRefreshToken} = require("../middlewares/tokenGenerator")
+
 
 exports.register = async (req, res) => {
 
@@ -26,6 +27,7 @@ exports.register = async (req, res) => {
 
 
         const token = generateToken(creator)
+        
         
 
         res.status(201).json({
@@ -66,12 +68,21 @@ exports.login = async (req, res) => {
         if(!passwordMatch){
              return res.status(400).json({messAGE:"INVALID CREDENTIALS"})
         } 
-        const token = await generateToken(creator)
+        const accessToken = await generateToken(creator)
+        const refereshToken = await generateRefreshToken(creator)
+
+        creator.save()
+
+        res.cookie("refreshToken", refereshToken,{
+            httpOnly:true,
+            secure:true,
+            sameSite:"Strict"
+        })
         
 
         return res.status(200).json({
             message:`welcome back ${creator.username}`,
-            token,
+            accessToken,
             creator: {
             id:creator._id,
             username:creator.username,
@@ -87,6 +98,49 @@ exports.login = async (req, res) => {
         
     } catch (error) {
         return res.status(500).json({error:error.message})
+        
+    }
+    
+}
+
+
+
+exports.refresh = async (req,res) => {
+
+    try {
+        const token = req.cookies.refereshToken
+
+        if(!token){
+            res.status(401).json({message:"Uauthorzed"})
+        }
+
+        const creator = await Creator.findOne({
+            refreshToken:token
+        })
+
+        if(!creator){
+            res.status(403).json({message:"Forbidden"})
+        }
+
+        jwt.verify(
+            token,
+            process.env.REFRESH_SECRET,
+            (err,data) =>{
+                if(err){
+                    res.status(403).json({message:"Forbidden"})
+                }
+
+                const accessToken = generateToken(creator)
+                res.json(accessToken)
+            }
+        )
+
+
+
+
+        
+    } catch (error) {
+        res.status(500).json({message:error.message})
         
     }
     

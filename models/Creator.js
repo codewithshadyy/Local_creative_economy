@@ -52,7 +52,8 @@ const creatorSchema = new mongoose.Schema({
         },
 resetPasswordExpire: {
       type: Date
-   }    
+   },
+   refreshToken:String    
 
 
 }, {timestamps:true})
