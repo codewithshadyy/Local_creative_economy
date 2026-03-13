@@ -3,9 +3,19 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
 
-const generateToken = async (creator) => {
-    return jwt.sign({id:creator._id, username:creator.username}, process.env.JWT_SECRET, {expiresIn:"7d"})
+exports.generateToken = async (creator) => {
+    return jwt.sign(
+        {
+            id:creator._id,
+            role:creator.role,
+             username:creator.username
+            }, process.env.JWT_SECRET, {expiresIn:"15m"})
     
 }
 
-module.exports = generateToken
+exports.generateRefreshToken = async (creator) => {
+
+    return jwt.sign(
+        {id:creator._id}, process.env.REFRESH_SECRET, {expiresIn:"7d"}
+    )
+}
