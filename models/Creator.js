@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const { validator } = require("validator.js")
 
 
-const creatorSchema = new mongoose({
+const creatorSchema = new mongoose.Schema({
     username:{
         type:String,
         required:true,
