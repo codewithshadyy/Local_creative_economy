@@ -93,42 +93,5 @@ exports.login = async (req, res) => {
 }
 
 
-// password forget endpoint
 
-exports.forgotPassword = async (req,res) => {
-  try {
-
-  const {email} = req.body
-    const creator = await Creator.findOne({email})
-
-    if(!creator) {
-        res.status(404).json({message:"invalid email or user not found"})
-    }
-
-    const resetToken = creator.getResetPasswordToken()
-    await creator.save({
-        validateBeforeSave:false
-    })
-
-    const resetUrl = `http://localhost:${process.env.PORT}/api/reset-password/${resetToken}`
-
-    res.status(200).json({
-        message:"reset link has been sent to your email",
-        resetUrl
-    })
-
-
-
-    
-  } catch (error) {
-    res.status(500).json({message:error.message})
-    
-  }
-
-  
-  
-}
-
-
-// passwpord reset endpoint
 
