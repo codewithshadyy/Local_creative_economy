@@ -1,6 +1,7 @@
 
 const mongoose = require("mongoose")
 const validator  = require("validator.js")
+const crypto = require("crypto")
 
 
 const creatorSchema = new mongoose.Schema({
@@ -48,6 +49,26 @@ resetPasswordExpire: {
 
 
 })
+
+creatorSchema.methods.getResetPasswordToken = () => {
+     const resetToken = crypto.randomBytes(20).toString("hex")
+
+    
+    this.resetPasswordToken = crypto
+        .createHash("sha256")
+        .update(resetToken)
+        .digest("hex")
+
+    this.resetPasswordExpire = Date.now() + 10 * 60 * 1000
+
+    return resetToken
+}
+
+
+
+
+
+
 
 const creator = mongoose.model("Creator", creatorSchema)
 
