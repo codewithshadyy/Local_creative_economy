@@ -31,8 +31,8 @@ exports.register = async (req, res) => {
         res.status(201).json({
             message:`${creator.email} created successfully`,
             token,
-            user:{
-                id:user._id,
+            creator:{
+                id:creator._id,
                 username:creator.username,
                 email:creator.email,
 
@@ -61,25 +61,32 @@ exports.login = async (req, res) => {
         if(!creator){
             return res.status(404).json({message:"Invalid creator"})
         }
-        const passwordMatch = await bcrypt.compare(creatorChecker.password)
+        const passwordMatch = await bcrypt.compare(password, creator.password)
 
         if(!passwordMatch){
              return res.status(400).json({messAGE:"INVALID CREDENTIALS"})
         } 
-        const token = generateToken(creator)
+        const token = await generateToken(creator)
+        console.log(token)
 
         return res.status(200).json({
             message:`welcome back ${creator.username}`,
             token,
+            creator: {
             id:creator._id,
+            username:creator.username,
+            email:creator.email
+
+            }
             
+
 
         })
             
         
         
     } catch (error) {
-        return ress.status(500).json({error:error.message})
+        return res.status(500).json({error:error.message})
         
     }
     

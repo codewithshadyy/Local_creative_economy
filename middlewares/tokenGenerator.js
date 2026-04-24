@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 
 
 const generateToken = async (creator) => {
-    return jwt.sign({id:creator_.id}, process.env.SECRET_KEY, {expiresIn:"7d"})
+    return jwt.sign({id:creator._id}, process.env.JWT_SECRET, {expiresIn:"7d"})
     
 }
 
