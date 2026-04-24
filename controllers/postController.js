@@ -8,7 +8,9 @@ exports.createPost = async (req,res) => {
     try {
         const {content} = req.body
 
-        const post = await Post.create({content})
+        const post = await Post.create({
+            author:req.creator.id,
+            content})
 
         res.status(201).json(post)
         
