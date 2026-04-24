@@ -1,7 +1,7 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
 const Creator = require("../models/Creator")
-const tokenGenerator = require("../middlewares/tokenGenerator")
+const generateToken = require("../middlewares/tokenGenerator")
 
 exports.register = async (req, res) => {
 
@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
         })
 
         if(creatorExists){
-            return res.status(400).json({message:`${creatorExists.email} exists`})
+            return res.status(400).json({message:"Oops tryanother email,looks llike the one provided has been taken"})
         }
 
 
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
         })
 
 
-        const token = tokenGenerator(creator)
+        const token = generateToken(creator)
         
 
         res.status(201).json({
@@ -44,6 +44,42 @@ exports.register = async (req, res) => {
         
     } catch (error) {
         res.status(500).json({message:error.message})
+        
+    }
+    
+}
+
+
+
+// user login endpoint
+
+exports.login = async (req, res) => {
+    try {
+        const {username, password} = req.body
+
+        const creator = await Creator.findOne({username})
+        if(!creator){
+            return res.status(404).json({message:"Invalid creator"})
+        }
+        const passwordMatch = await bcrypt.compare(creatorChecker.password)
+
+        if(!passwordMatch){
+             return res.status(400).json({messAGE:"INVALID CREDENTIALS"})
+        } 
+        const token = generateToken(creator)
+
+        return res.status(200).json({
+            message:`welcome back ${creator.username}`,
+            token,
+            id:creator._id,
+            
+
+        })
+            
+        
+        
+    } catch (error) {
+        return ress.status(500).json({error:error.message})
         
     }
     

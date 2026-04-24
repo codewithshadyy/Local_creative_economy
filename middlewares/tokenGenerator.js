@@ -7,3 +7,5 @@ const generateToken = async (creator) => {
     return jwt.sign({id:creator_.id}, process.env.SECRET_KEY, {expiresIn:"7d"})
     
 }
+
+module.exports = generateToken
