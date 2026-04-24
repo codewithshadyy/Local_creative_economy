@@ -1,6 +1,6 @@
 
 const mongoose = require("mongoose")
-const { validator } = require("validator.js")
+const validator  = require("validator.js")
 
 
 const creatorSchema = new mongoose.Schema({
@@ -13,7 +13,8 @@ const creatorSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
+        validate:[validator.isEmail, "please provide a valid email"],
+        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
     },
 
     password:{
