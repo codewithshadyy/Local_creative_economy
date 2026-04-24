@@ -1,8 +1,9 @@
 const express = require("express")
 const router = express.Router()
 const {createPost} = require("../controllers/postCreator")
+const {protect} = require("../middlewares/protect")
 
-router.post("/create", createPost)
+router.post("/create",protect, createPost)
 
 
 
