@@ -1,14 +1,21 @@
 const mongoose = require("mongoose")
 const express = require("express")
+const app = express()
 const dotenv = require("dotenv")
+const creatorRoutes = require("./routes/creatorRoutes")
 dotenv.config()
 
 
-const app = express()
+
+app.use(express.json())
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("database connected successfullly"))
 .catch((error) => console.log(error.message))
+
+app.use("/api/", creatorRoutes)
+
+
 
 
 app.listen(process.env.PORT, ()=>{console.log(`http://localhost:${process.env.PORT}`)})

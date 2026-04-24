@@ -13,8 +13,8 @@ const creatorSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
-        validate:[validator.isEmail, "please provide a valid email"],
-        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
+        
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
     },
 
     password:{
@@ -27,13 +27,13 @@ const creatorSchema = new mongoose.Schema({
          default: "" 
         },
     followers:[
-         {type:mongoose.Schema.type.objectId, ref:"Creator"}
+         {type: mongoose.Schema.Types.ObjectId, ref: "Creator" }
     ],
 
     following: [
-        {type:mongoose.Schema.type.objectId, ref:"Creator"}
+        {type: mongoose.Schema.Types.ObjectId, ref: "Creator" }
     ],
-    
+
     isAdmin: { 
         type: Boolean,
          default: false 
