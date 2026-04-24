@@ -3,6 +3,7 @@ const express = require("express")
 const app = express()
 const dotenv = require("dotenv")
 const creatorRoutes = require("./routes/creatorRoutes")
+const postRoutes = require("./routes/postRoutes")
 dotenv.config()
 
 
@@ -14,6 +15,7 @@ mongoose.connect(process.env.MONGODB_URI)
 .catch((error) => console.log(error.message))
 
 app.use("/api/", creatorRoutes)
+app.use("/api/posts", postRoutes)
 
 
 
