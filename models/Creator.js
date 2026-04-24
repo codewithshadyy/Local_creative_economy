@@ -26,14 +26,14 @@ const creatorSchema = new mongoose.Schema({
         type: String,
          default: "" 
         },
-    followers: {
-         type: Array,
-          default: []
-         },
-    following: {
-         type: Array,
-          default: []
-         },
+    followers:[
+         {type:mongoose.Schema.type.objectId, ref:"Creator"}
+    ],
+
+    following: [
+        {type:mongoose.Schema.type.objectId, ref:"Creator"}
+    ],
+    
     isAdmin: { 
         type: Boolean,
          default: false 
