@@ -39,6 +39,13 @@ const creatorSchema = new mongoose.Schema({
          default: false 
         },
 
+    resetPasswordToken: {
+            type: String
+        },
+resetPasswordExpire: {
+      type: Date
+   }    
+
 
 })
 
