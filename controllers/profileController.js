@@ -14,6 +14,7 @@ exports.createProfile = async (req,res) => {
             creator:req.creator.id,
             bio:req.body.bio || "",
             profilePic:req.body.profilePic || ""
+            
 
         })
 
@@ -22,6 +23,27 @@ exports.createProfile = async (req,res) => {
     } catch (error) {
 
         return res.status(500).json({message:error.message})
+        
+    }
+    
+}
+
+
+exports.getProfile = async (req,res) => {
+    try {
+        const profile  = await Profile.findOne({creator:req.creator.id})
+                         .populate("creator", "username email")
+                         .populate("posts")
+
+        if(!profile){
+            res.status(404).json({"message":"Profile does not exists"})
+        }
+        
+        res.status(201).json(profile)
+        
+    } catch (error) {
+
+        res.status(500).json({message:errorMonitor.message})
         
     }
     
