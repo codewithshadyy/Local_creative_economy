@@ -29,11 +29,11 @@ exports.createProfile = async (req,res) => {
 }
 
 
-exports.getProfile = async (req,res) => {
+exports.getMyProfile = async (req,res) => {
     try {
         const profile  = await Profile.findOne({creator:req.creator.id})
-                         .populate("creator", "username email")
-                         .populate("posts")
+                         .populate("creator", "username email followers")
+                         .populate("posts", "author content replies likes")
 
         if(!profile){
             res.status(404).json({"message":"Profile does not exists"})
@@ -44,6 +44,25 @@ exports.getProfile = async (req,res) => {
     } catch (error) {
 
         res.status(500).json({message:errorMonitor.message})
+        
+    }
+    
+}
+
+exports.getAnyUserProfile = async (req,res) => {
+
+    try {
+        const userProfile = await Profile.findById(req.params.id)
+
+        if(!userProfile){
+            return res.status(404).json({"message":"User id not found"})
+        }
+
+        res.status(200).json(userProfile)
+        
+    } catch (error) {
+
+        res.status(500).json({message:error.message})
         
     }
     
