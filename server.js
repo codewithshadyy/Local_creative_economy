@@ -4,7 +4,7 @@ const app = express()
 const dotenv = require("dotenv")
 const creatorRoutes = require("./routes/creatorRoutes")
 const postRoutes = require("./routes/postRoutes")
-const profileroutes = require("./routes/profileRoutes")
+const profileRoutes = require("./routes/profileRoutes")
 
 
 dotenv.config()
@@ -17,8 +17,9 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("database connected successfullly"))
 .catch((error) => console.log(error.message))
 
-app.use("/api/", creatorRoutes)
-app.use("/api/posts", postRoutes)
+app.use("/api/v1", creatorRoutes)
+app.use("/api/v1/posts", postRoutes)
+app.use("/api/v1/profiles", profileRoutes)
 
 
 

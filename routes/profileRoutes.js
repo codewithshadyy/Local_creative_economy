@@ -5,7 +5,7 @@ const {protect} = require("../middlewares/protect")
 const {createProfile} = require("../controllers/profileController")
 
 
-router.post("/create/profile", protect, createProfile)
+router.post("/create", protect, createProfile)
 
 
 
