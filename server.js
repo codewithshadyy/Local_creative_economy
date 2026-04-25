@@ -4,6 +4,9 @@ const app = express()
 const dotenv = require("dotenv")
 const creatorRoutes = require("./routes/creatorRoutes")
 const postRoutes = require("./routes/postRoutes")
+const profileroutes = require("./routes/profileRoutes")
+
+
 dotenv.config()
 
 

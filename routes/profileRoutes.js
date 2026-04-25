@@ -8,3 +8,7 @@ const {createProfile} = require("../controllers/profileController")
 router.post("/create/profile", protect, createProfile)
 
 
+
+module.exports = router
+
+

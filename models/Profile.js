@@ -20,12 +20,13 @@ const profileSchema = new mongoose.Schema({
     ],
 
     bio:{
-        type:string,
+        type:String,
+        default:""
 
     },
 
     profilePic:{
-        type:string,
+        type:String,
         default:"",
 
 
