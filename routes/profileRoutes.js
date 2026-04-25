@@ -2,11 +2,12 @@ const express = require("express")
 const router = express.Router()
 
 const {protect} = require("../middlewares/protect")
-const {createProfile, getProfile} = require("../controllers/profileController")
+const {createProfile, getMyProfile, getAnyUserProfile} = require("../controllers/profileController")
 
 
 router.post("/create", protect, createProfile)
-router.get("/see",  protect, getProfile)
+router.get("/me",  protect, getMyProfile)
+router.get("/:creatorId", protect, getAnyUserProfile)
 
 
 
