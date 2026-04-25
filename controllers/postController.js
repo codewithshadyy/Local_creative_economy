@@ -2,6 +2,7 @@ const express = require("express")
 
 const Post = require("../models/Post")
 const creator = require("../models/Creator")
+const Profile = require("../models/Post")
 
 exports.createPost = async (req,res) => {
 
@@ -11,6 +12,11 @@ exports.createPost = async (req,res) => {
         const post = await Post.create({
             author:req.creator.id,
             content})
+
+        await Profile.findOneAndUpdate(
+            {creator:req.creator.id},
+            {$push:{posts:post._id}}
+        )    
 
         res.status(201).json(post)
         

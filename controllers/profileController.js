@@ -1,6 +1,8 @@
 
 
 const Profile = require("../models/profile")
+const Post = require("../models/Post")
+const mongoose = require("mongoose")
 
 
 exports.createProfile = async (req,res) => {
@@ -38,12 +40,15 @@ exports.getMyProfile = async (req,res) => {
         if(!profile){
             res.status(404).json({"message":"Profile does not exists"})
         }
+
+        
         
         res.status(201).json(profile)
+
         
     } catch (error) {
 
-        res.status(500).json({message:errorMonitor.message})
+        res.status(500).json({message:error.message})
         
     }
     
@@ -52,7 +57,11 @@ exports.getMyProfile = async (req,res) => {
 exports.getAnyUserProfile = async (req,res) => {
 
     try {
-        const profile = await Profile.findOne({creator:req.params.creatorId})
+
+        const creatorId = req.params.creatorId
+      
+
+        const profile = await Profile.findOne({creator:creatorId})
         .populate("creator", "username email")
         .populate("posts", "[]")
 
@@ -60,7 +69,17 @@ exports.getAnyUserProfile = async (req,res) => {
             return res.status(404).json({message: "Profile not found"})
         }
 
-        res.status(200).json(profile)
+        const posts = await Post.find({
+            author: new mongoose.Types.ObjectId(creatorId)
+        }).sort({ createdAt: -1 })
+
+     
+
+
+        res.status(200).json({
+            profile,
+            posts
+        })
         
     } catch (error) {
 
