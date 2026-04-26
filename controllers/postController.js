@@ -77,14 +77,14 @@ exports.getAllPost = async (req,res) => {
 exports.updatePost = async (req,res) => {
 
     try {
-
-        const post = await Post.findOne({postId:req.params.id})
+        const postId = req.params.postId
+        const post = await Post.findOne({post:postId})
 
         if(!post){
             res.status(404).json({mesage:"post not found"})
         }
-
-        post.content = req.body.content || ""
+     post.author = req.creator.id
+     post.content = req.body.content || ""
       await  post.save()
         res.status(200).json(post)
         

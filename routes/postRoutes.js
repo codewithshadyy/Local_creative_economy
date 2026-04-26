@@ -6,7 +6,7 @@ const {protect} = require("../middlewares/protect")
 router.post("/create",protect, createPost)
 router.get("/getPosts/:id", protect, getSinglePost)
 router.get("/getPosts", protect, getAllPost)
-router.put("/update/:id", protect,updatePost )
+router.put("/updatePosts/:id", protect,updatePost )
 
 
 
