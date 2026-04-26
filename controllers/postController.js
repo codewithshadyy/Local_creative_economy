@@ -4,6 +4,8 @@ const Post = require("../models/Post")
 const creator = require("../models/Creator")
 const Profile = require("../models/Post")
 
+
+// creating post route
 exports.createPost = async (req,res) => {
 
     try {
@@ -28,6 +30,8 @@ exports.createPost = async (req,res) => {
 }
 
 
+// getting single post tied to username
+
 exports.getSinglePost = async (req,res) => {
 
     try {
@@ -48,6 +52,9 @@ exports.getSinglePost = async (req,res) => {
     
 }
 
+
+// getting all posts tied to their usernames
+
 exports.getAllPost = async (req,res) => {
 
     try {
@@ -59,6 +66,31 @@ exports.getAllPost = async (req,res) => {
     } catch (error) {
 
         res.status(500).json({message:error.message})
+        
+    }
+    
+}
+
+
+// updating post
+
+exports.updatePost = async (req,res) => {
+
+    try {
+
+        const post = await Post.findOne({postId:req.params.id})
+
+        if(!post){
+            res.status(404).json({mesage:"post not found"})
+        }
+
+        post.content = req.body.content || ""
+      await  post.save()
+        res.status(200).json(post)
+        
+    } catch (error) {
+        res.status(500).json({message:error.message})
+
         
     }
     

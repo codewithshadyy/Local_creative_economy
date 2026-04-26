@@ -5,6 +5,8 @@ const Post = require("../models/Post")
 const mongoose = require("mongoose")
 
 
+
+// profile creation
 exports.createProfile = async (req,res) => {
     try {
         const existing = await Profile.findOne({creator:req.creator.id})
@@ -30,7 +32,7 @@ exports.createProfile = async (req,res) => {
     
 }
 
-
+// getting my profile
 exports.getMyProfile = async (req,res) => {
     try {
         const profile  = await Profile.findOne({creator:req.creator.id})
@@ -54,6 +56,8 @@ exports.getMyProfile = async (req,res) => {
     
 }
 
+
+// getting anyusre profile
 exports.getAnyUserProfile = async (req,res) => {
 
     try {
@@ -89,6 +93,8 @@ exports.getAnyUserProfile = async (req,res) => {
     
 }
 
+
+// updating my profile
 exports.updateProfile = async (req,res) => {
 
     try {
