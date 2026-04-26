@@ -35,14 +35,14 @@ exports.getMyProfile = async (req,res) => {
     try {
         const profile  = await Profile.findOne({creator:req.creator.id})
                          .populate("creator", "username email followers")
-                         .populate("posts", "author content replies likes")
+                         .populate("posts")
 
         if(!profile){
             res.status(404).json({"message":"Profile does not exists"})
         }
 
         
-        
+       
         res.status(201).json(profile)
 
         

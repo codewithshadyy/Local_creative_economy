@@ -28,4 +28,38 @@ exports.createPost = async (req,res) => {
 }
 
 
+exports.getSinglePost = async (req,res) => {
+
+    try {
+        const post = await Post.findOne({post:req.params.id})
+        if(!post){
+            return res.status(404).json({message:"Post not Found"})
+
+        }
+
+        res.status(200).json(post)
+        
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+    
+}
+
+exports.getAllPost = async (req,res) => {
+
+    try {
+        const posts = await Post.find()
+        .populate("creator", "username")
+
+        res.status(200).json(posts)
+        
+    } catch (error) {
+
+        res.status(500).json({message:error.message})
+        
+    }
+    
+}
+
+
 
