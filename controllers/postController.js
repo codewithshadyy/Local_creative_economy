@@ -32,6 +32,7 @@ exports.getSinglePost = async (req,res) => {
 
     try {
         const post = await Post.findOne({post:req.params.id})
+        .populate("creator", "username")
         if(!post){
             return res.status(404).json({message:"Post not Found"})
 
