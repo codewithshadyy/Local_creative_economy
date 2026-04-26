@@ -4,8 +4,8 @@ const {createPost, getAllPost, getSinglePost} = require("../controllers/postCont
 const {protect} = require("../middlewares/protect")
 
 router.post("/create",protect, createPost)
-router.get("/posts/:id", protect, getSinglePost)
-router.get("/posts", protect, getAllPost)
+router.get("/getPosts/:id", protect, getSinglePost)
+router.get("/getPosts", protect, getAllPost)
 
 
 
