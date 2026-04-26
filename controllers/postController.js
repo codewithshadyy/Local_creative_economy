@@ -97,6 +97,7 @@ exports.updatePost = async (req,res) => {
 }
 
 
+// /delete post endpoint
 exports.deletePost = async (req,res) => {
 
     try {
