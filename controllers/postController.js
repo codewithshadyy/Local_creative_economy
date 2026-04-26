@@ -97,4 +97,30 @@ exports.updatePost = async (req,res) => {
 }
 
 
+exports.deletePost = async (req,res) => {
+
+    try {
+        const postId = req.params.id
+        const post = await Post.findOneAndDelete({post:postId})
+
+        if(!post){
+            res.status(404).json({message:"Post not found"})
+
+        }else{
+            if(!req.creator.id){
+                res.status(400).json({message:"You are not a owner to this post"})
+            }
+
+            res.status(200).json({message:"Post deleted"})
+        }
+        
+    } catch (error) {
+
+        return res.status(500).json({message:error.message})
+        
+    }
+    
+}
+
+
 
