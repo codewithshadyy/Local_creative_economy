@@ -31,8 +31,10 @@ exports.createPost = async (req,res) => {
 exports.getSinglePost = async (req,res) => {
 
     try {
-        const post = await Post.findOne({post:req.params.id})
-        .populate("creator", "username")
+
+        const postId = req.params.postId
+        const post = await Post.findOne({post:postId})
+        
         if(!post){
             return res.status(404).json({message:"Post not Found"})
 
@@ -50,7 +52,7 @@ exports.getAllPost = async (req,res) => {
 
     try {
         const posts = await Post.find()
-        .populate("creator", "username")
+        .populate("author", "username")
 
         res.status(200).json(posts)
         
