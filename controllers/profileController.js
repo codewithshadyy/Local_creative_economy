@@ -147,7 +147,7 @@ exports.followCreator = async (req,res) => {
             creatorToFollow.followers = creatorToFollow.filter((id) => id.tostring()!==req.creator.id)
 
              await currentCreator.save()
-            await creatorToFollowToFollow.save()
+            await creatorToFollow.save()
 
             return res.json({ message: "Unfollowed user" })
         }else{

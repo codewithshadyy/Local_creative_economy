@@ -97,6 +97,7 @@ exports.findCreators = async (req, res) => {
     try {
         const creators = await Creator.find()
         .populate("username" ,"email")
+        .populate("followers", "username")
         .select("-password")
 
         res.status(200).json(creators)
