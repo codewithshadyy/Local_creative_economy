@@ -126,6 +126,45 @@ exports.deletePost = async (req,res) => {
     
 }
 
+// like post
+exports.likePost = async (req,res) => {
+    try {
+        const post =  await Post.findById(req.params.id)
+
+        if(!post){
+               return res.status(404).json({ message: "Post not found" })
+        }
+
+        const creatorId = req.creator.id
+        const isLiked = post.likes.includes(creatorId)
+
+        
+        if(isLiked){
+
+            // unlike
+            post.likes =post.likes.filter((id) => id.toString() !==creatorId)
+        } else{
+
+            // like
+            post.likes.push(creatorId)
+
+        }
+        await post.save()
+
+          res.json({
+            message: isLiked ? "Post unliked" : "Post liked",
+            likes: post.likes.length
+        })
+        
+    } catch (error) {
+
+         return res.status(500).json({message:error.message})
+
+        
+    }
+    
+}
+
 
 // replying to a post
 
@@ -134,6 +173,7 @@ exports.replyPost = async (req,res) => {
     try {
 
         const post = await Post.findById(req.params.id)
+        .populate("replies.user", "username")
         if(!post){
             return res.status(404).json({message:"Ooops Post not Found!!"})
         }
