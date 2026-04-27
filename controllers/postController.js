@@ -62,7 +62,8 @@ exports.getAllPost = async (req,res) => {
     try {
         const posts = await Post.find()
         .populate("author", "username")
-        .populate("replies.user", "username")
+        .populate("replies.user", "username email")
+        .populate("likes", "username email")
 
         res.status(200).json(posts)
         
@@ -71,7 +72,7 @@ exports.getAllPost = async (req,res) => {
         res.status(500).json({message:error.message})
         
     }
-    
+               
 }
 
 
@@ -173,7 +174,7 @@ exports.replyPost = async (req,res) => {
     try {
 
         const post = await Post.findById(req.params.id)
-        .populate("replies.user", "username")
+        
         if(!post){
             return res.status(404).json({message:"Ooops Post not Found!!"})
         }
@@ -183,7 +184,7 @@ exports.replyPost = async (req,res) => {
             text :req.body.text
 
         }
-        post.replies.push(post)
+        post.replies.push(reply)
         await post.save()
         res.status(201).json(post.replies)
         

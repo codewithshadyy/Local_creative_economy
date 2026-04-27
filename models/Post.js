@@ -13,10 +13,13 @@ const postSchema = new mongoose.Schema({
         ,
     image: String,
     likes: [
+
+        
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Creator"
-        }
+       }
+    
     ],
     replies: [
         {
@@ -24,7 +27,10 @@ const postSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Creator"
             },
-            text: String,
+            text: {
+                type:String,
+                
+            },
             createdAt: {
                 type: Date,
                 default: Date.now
