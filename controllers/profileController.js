@@ -3,6 +3,7 @@
 const Profile = require("../models/profile")
 const Post = require("../models/Post")
 const mongoose = require("mongoose")
+const Creator = require("../models/Creator")
 
 
 
@@ -118,4 +119,53 @@ exports.updateProfile = async (req,res) => {
         
     }
     
+}
+
+
+// mutual build
+exports.followCreator = async (req,res) => {
+
+    
+    try {
+
+        const creatorToFollow = await Creator.findById(req.params.id)
+        const currentCreator = await Creator.findById(req.creator.id)
+
+        if(!creatorToFollow){
+             return res.status(404).json({ message: "User not found" })
+        }
+
+        if(currentCreator){
+              return res.status(400).json({ message: "You can't follow yourself" })
+        }
+
+        const isFollowing = currentCreator.following.includes(req.params.id)
+
+        if(isFollowing){
+            //unfollow
+            currentCreator.following = currentCreator.filter((id) => id.tostring() !== req.params.id)
+            creatorToFollow.followers = creatorToFollow.filter((id) => id.tostring()!==req.creator.id)
+
+             await currentUser.save()
+            await userToFollow.save()
+
+            return res.json({ message: "Unfollowed user" })
+        }else{
+            // follow
+            currentCreator.following.push(req.params.id)
+            creatorToFollow.followers.push(req.creator.id)
+
+               await currentUser.save()
+            await userToFollow.save()
+
+            return res.json({ message: "Followed user" })
+        }
+
+        
+    } catch (error) {
+
+        return res.status(500).json({message:error.message})
+
+        
+    }
 }
