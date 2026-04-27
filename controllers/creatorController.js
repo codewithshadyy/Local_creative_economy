@@ -92,6 +92,23 @@ exports.login = async (req, res) => {
     
 }
 
+exports.findCreators = async (req, res) => {
+
+    try {
+        const creators = await Creator.find()
+        .populate("username")
+
+        res.status(200).json(creators)
+        
+    } catch (error) {
+
+         return res.status(500).json({error:error.message})
+
+        
+    }
+    
+}
+
 
 
 
