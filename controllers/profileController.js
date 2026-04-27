@@ -135,7 +135,7 @@ exports.followCreator = async (req,res) => {
              return res.status(404).json({ message: "User not found" })
         }
 
-        if(currentCreator){
+        if(!currentCreator){
               return res.status(400).json({ message: "You can't follow yourself" })
         }
 
@@ -146,8 +146,8 @@ exports.followCreator = async (req,res) => {
             currentCreator.following = currentCreator.filter((id) => id.tostring() !== req.params.id)
             creatorToFollow.followers = creatorToFollow.filter((id) => id.tostring()!==req.creator.id)
 
-             await currentUser.save()
-            await userToFollow.save()
+             await currentCreator.save()
+            await creatorToFollowToFollow.save()
 
             return res.json({ message: "Unfollowed user" })
         }else{
@@ -155,8 +155,8 @@ exports.followCreator = async (req,res) => {
             currentCreator.following.push(req.params.id)
             creatorToFollow.followers.push(req.creator.id)
 
-               await currentUser.save()
-            await userToFollow.save()
+               await currentCreator.save()
+            await creatorToFollow.save()
 
             return res.json({ message: "Followed user" })
         }
