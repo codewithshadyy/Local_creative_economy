@@ -60,6 +60,7 @@ exports.getAllPost = async (req,res) => {
     try {
         const posts = await Post.find()
         .populate("author", "username")
+        .populate("replies.user", "username")
 
         res.status(200).json(posts)
         
