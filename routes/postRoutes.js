@@ -8,7 +8,7 @@ router.get("/getPosts/:id", protect, getSinglePost)
 router.get("/getPosts", protect, getAllPost)
 router.put("/updatePosts/:id", protect,updatePost )
 router.delete("/deletePost/:id", protect, deletePost)
-router.post("/reply", protect, replyPost)
+router.post("/reply/:id", protect, replyPost)
 
 
 

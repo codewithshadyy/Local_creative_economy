@@ -38,6 +38,8 @@ exports.getSinglePost = async (req,res) => {
 
         const postId = req.params.postId
         const post = await Post.findOne({post:postId})
+        .populate("author", "username")
+        .populate("replies.user", "username")
         
         if(!post){
             return res.status(404).json({message:"Post not Found"})
@@ -131,16 +133,16 @@ exports.replyPost = async (req,res) => {
 
     try {
 
-        const post = await Post.findOne(req.params.id)
+        const post = await Post.findById(req.params.id)
         if(!post){
             return res.status(404).json({message:"Ooops Post not Found!!"})
         }
 
-        const reply = post.create({
-            author = req.creator.id,
-            text = req.body.text
+        const reply = {
+            user :req.creator.id,
+            text :req.body.text
 
-        })
+        }
         post.replies.push(post)
         await post.save()
         res.status(201).json(post.replies)
