@@ -124,4 +124,33 @@ exports.deletePost = async (req,res) => {
 }
 
 
+// replying to a post
+
+exports.replyPost = async (req,res) => {
+
+    try {
+
+        const post = await Post.findOne(req.params.id)
+        if(!post){
+            return res.status(404).json({message:"Ooops Post not Found!!"})
+        }
+
+        const reply = post.create({
+            author = req.creator.id,
+            text = req.body.text
+
+        })
+        post.replies.push(post)
+        await post.save()
+        res.status(201).json(post.replies)
+        
+    } catch (error) {
+
+         return res.status(500).json({message:error.message})
+        
+    }
+    
+}
+
+
 
