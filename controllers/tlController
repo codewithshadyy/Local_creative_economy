@@ -1,0 +1,15 @@
+const Creator = require("../models/Creator")
+const post  = require("../models/post")
+
+exports.getTimeLine = async (req, res) => {
+
+    try {
+        
+        
+    } catch (error) {
+
+        res.status(500).json({message:error.message})
+        
+    }
+    
+}
