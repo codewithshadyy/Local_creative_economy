@@ -68,9 +68,7 @@ exports.getAllPost = async (req,res) => {
 
 
 
-        const posts = await Post.find({
-            author:{$in:users}
-     } )
+        const posts = await Post.find()
         .populate("author", "username")
         .populate("replies.user", "username email")
         .populate("likes", "username email")
