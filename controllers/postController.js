@@ -196,6 +196,8 @@ exports.replyPost = async (req,res) => {
 
         }
         post.replies.push(reply)
+        post.replies.slice(-3)
+        
         await post.save()
         res.status(201).json(post.replies)
         

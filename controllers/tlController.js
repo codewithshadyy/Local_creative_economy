@@ -1,5 +1,7 @@
+
 const Creator = require("../models/Creator")
 const Post  = require("../models/Post")
+
 
 exports.getTimeLine = async (req, res) => {
 
@@ -7,20 +9,24 @@ exports.getTimeLine = async (req, res) => {
 
 
         const page = parseInt(req.params.page) || 0
-        const limit = 5
-        const currentCreator = await Creator.findById(req.creator.id)
+        const limit = 20
+        const currentCreator = await Creator.findById(req.creator.id).select("following")
 
         const users = [...currentCreator.following, req.creator.id]
 
         const posts = await Post.find({
             author:{$in:users} 
         })
-        .populate("author", "username")
-        .populate("replies.user", "username")
+       .select("content author likes replies createdAt")
+        .populate("author", "username profilePicture")
         .populate("likes", "username")
+        .populate("replies.user", "username")
         .sort({ createdAt: -1 })
         .skip(page * limit)
-        .limit(limit) 
+        .limit(limit)
+        .lean()
+
+     
 
         res.json(posts)
         
