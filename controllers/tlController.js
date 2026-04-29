@@ -1,5 +1,5 @@
 const Creator = require("../models/Creator")
-const Post  = require("../models/post")
+const Post  = require("../models/Post")
 
 exports.getTimeLine = async (req, res) => {
 
