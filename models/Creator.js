@@ -8,12 +8,14 @@ const creatorSchema = new mongoose.Schema({
     username:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        index:true
     },
     email : {
         type:String,
         required:true,
         unique:true,
+        index:true,
         
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
     },
@@ -50,8 +52,7 @@ resetPasswordExpire: {
 
 })
 
-creatorSchema.index({ username: 1 })
-creatorSchema.index({ email: 1 })
+
 
 
 
