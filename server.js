@@ -5,6 +5,7 @@ const dotenv = require("dotenv")
 const creatorRoutes = require("./routes/creatorRoutes")
 const postRoutes = require("./routes/postRoutes")
 const profileRoutes = require("./routes/profileRoutes")
+const tlRoutes = require("./routes/tlRoutes")
 
 
 dotenv.config()
@@ -20,6 +21,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use("/api/v1", creatorRoutes)
 app.use("/api/v1/posts", postRoutes)
 app.use("/api/v1/profiles", profileRoutes)
+app.use("/api/v1/feeds", tlRoutes)
 
 
 
