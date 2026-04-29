@@ -50,7 +50,8 @@ resetPasswordExpire: {
 
 })
 
-
+creatorSchema.index({ username: 1 })
+creatorSchema.index({ email: 1 })
 
 
 
