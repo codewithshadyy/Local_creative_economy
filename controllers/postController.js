@@ -60,10 +60,23 @@ exports.getSinglePost = async (req,res) => {
 exports.getAllPost = async (req,res) => {
 
     try {
-        const posts = await Post.find()
+
+
+        const page = parseInt(req.params.page) || 0
+
+        const limit = 5
+
+
+
+        const posts = await Post.find({
+            author:{$in:users}
+     } )
         .populate("author", "username")
         .populate("replies.user", "username email")
         .populate("likes", "username email")
+        .sort({createdAt:-1})
+        .skip(page * limit)
+        .limit(limit)
 
         res.status(200).json(posts)
         

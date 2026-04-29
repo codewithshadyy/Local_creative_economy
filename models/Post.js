@@ -4,7 +4,8 @@ const postSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Creator",
-        required: true
+        required: true,
+        index:true
     },
     content: {
        type: String,
@@ -33,14 +34,14 @@ const postSchema = new mongoose.Schema({
             },
             createdAt: {
                 type: Date,
-                default: Date.now
+                default: Date.now,
+                index:true
             }
         }
     ]
 }, { timestamps: true })
 
-postSchema.index({ author: 1, createdAt: -1 })
-postSchema.index({ createdAt: -1 })
+
 
 const post = mongoose.model("Post", postSchema)
 
