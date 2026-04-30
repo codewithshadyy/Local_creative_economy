@@ -1,17 +1,17 @@
 
-const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerJsDoc = require("swagger-jsdoc")
 const swaggerUi = require('swagger-ui-express')
 
 
 
 const apiDocs = {
 
-      definition: {
+    definition: {
     openapi: '3.0.0',
     info: {
-      title: 'User API',
+      title: 'My sm API',
       version: '1.0.0',
-      description: 'social media api '
+      description: 'Social media API '
     },
     servers: [
       {
@@ -19,7 +19,8 @@ const apiDocs = {
         description: 'Development server'
       }
     ]
-  }
+  },
+   apis: ['../routes/*.js', './server.js'], 
 
 }
 

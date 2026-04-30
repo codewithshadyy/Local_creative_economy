@@ -10,6 +10,8 @@ const creatorRoutes = require("./routes/creatorRoutes")
 const postRoutes = require("./routes/postRoutes")
 const profileRoutes = require("./routes/profileRoutes")
 const tlRoutes = require("./routes/tlRoutes")
+const swaggerDoc = require("./documentation/docs")
+const swaggerUi = require('swagger-ui-express');
 
 // env variables configuration
 dotenv.config()
@@ -26,14 +28,21 @@ mongoose.connect(process.env.MONGODB_URI)
 .catch((error) => console.log(error.message))
 
 
+
+// docs configurtion
+app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
+
+
+
 // routes configurations
+
 app.use("/api/v1", creatorRoutes)
 app.use("/api/v1/posts", postRoutes)
 app.use("/api/v1/profiles", profileRoutes)
 app.use("/api/v1/feeds", tlRoutes)
 
 
-// docs configurtion
+
 
 
 
