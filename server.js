@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 
 
-// docs configurtion
+// docs configuration
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 
