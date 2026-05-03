@@ -1,6 +1,6 @@
 
 
-const Profile = require("../models/profile")
+const Profile = require("../models/Profile")
 const Post = require("../models/Post")
 const mongoose = require("mongoose")
 const Creator = require("../models/Creator")

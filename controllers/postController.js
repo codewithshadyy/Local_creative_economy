@@ -2,7 +2,7 @@ const express = require("express")
 
 const Post = require("../models/Post")
 const creator = require("../models/Creator")
-const Profile = require("../models/Post")
+const Profile = require("../models/Profile")
 
 
 // creating post route
