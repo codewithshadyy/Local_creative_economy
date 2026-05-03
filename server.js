@@ -1,4 +1,4 @@
-//node.js modules and packages packages
+//node.js modules and packages 
 const mongoose = require("mongoose")
 const express = require("express")
 const app = express()
