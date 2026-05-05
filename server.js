@@ -1,52 +1,35 @@
-// //node.js modules and packages 
-// const mongoose = require("mongoose")
-// const express = require("express")
-// const app = express()
-// const dotenv = require("dotenv")
-// const limitApplication = require("./security/limit")
 
-// // Routes
-// const creatorRoutes = require("./routes/creatorRoutes")
-// const postRoutes = require("./routes/postRoutes")
-// const profileRoutes = require("./routes/profileRoutes")
-// const tlRoutes = require("./routes/tlRoutes")
-// const swaggerDoc = require("./documentation/docs")
-// const swaggerUi = require('swagger-ui-express');
+const cluster  = require("cluster")
+const os=require("os")
+const app = require("./app")
+const PORT = process.env.PORT
+const NUM_CPUS = os.cpus().length
 
-// // env variables configuration
-// dotenv.config()
+if(cluster.isPrimary){
+    console.log(`Primaty process started [PID :${process.pid}]`)
+    console.log(`detected ${NUM_CPUS} cores \n`)
+    console.log(`spawning ${NUM_CPUS} workers`)
 
+for(let i =0; i<=NUM_CPUS; i++){
+    cluster.fork()
 
-// // middlewares
-// app.use(express.json())
-// app.use(limitApplication)
+}
 
+    cluster.on("exit", (worker, code, signal)=>{
 
-// // db connection
-// mongoose.connect(process.env.MONGODB_URI)
-// .then(() => console.log("database connected successfullly"))
-// .catch((error) => console.log(error.message))
+    console.error(` Worker [PID: ${worker.process.pid}] died (signal: ${signal}, code: ${code})`)
+    console.log(` Restarting a new worker...`)
+    cluster.fork()
 
+    })
 
-
-// // docs configuration
-// app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
+    cluster.on("online", (worker)=>{
+         console.log(`Worker [PID: ${worker.process.pid}] is online`)
+    })
 
 
-
-// // routes configurations
-
-// app.use("/api/v1", creatorRoutes)
-// app.use("/api/v1/posts", postRoutes)
-// app.use("/api/v1/profiles", profileRoutes)
-// app.use("/api/v1/feeds", tlRoutes)
-
-
-
-
-
-
-
-// // /port listening
-
-// app.listen(process.env.PORT, ()=>{console.log(`http://localhost:${process.env.PORT}`)})
+}else{
+    app.listen(PORT, ()=>{
+        console.log(`Worker [PID: ${process.pid}] listening on port ${PORT}`)
+    })
+}
