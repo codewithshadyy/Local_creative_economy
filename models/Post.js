@@ -18,12 +18,14 @@ const postSchema = new mongoose.Schema({
         
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Creator"
+            ref: "Creator",
+            
        }
     
     ],
     replies: [
         {
+            
             user: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Creator"

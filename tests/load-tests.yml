@@ -1,0 +1,34 @@
+config:
+  target: "http://localhost:4549"
+  phases:
+    - duration: 60       # Run for 60 seconds
+      arrivalRate: 5     # Start with 5 users per second
+      name: "Warm up"
+    - duration: 60
+      arrivalRate: 50    # Ramp up to 50 users per second
+      name: "Ramp up"
+    - duration: 60
+      arrivalRate: 100   # Stress test - 100 users per second
+      name: "Stress test"
+
+scenarios:
+  - name: "Browse social feed"
+    flow:
+      - post:
+          url: "/api/v1/creator/login"
+          json:
+            email: "testuser@gmail.com"
+            password: "password123"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+
+      - get:
+          url: "/api/v1/posts/getPosts"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+
+      - get:
+          url: "/api/v1/creators"
+          headers:
+            Authorization: "Bearer {{ authToken }}"

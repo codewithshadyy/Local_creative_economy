@@ -34,7 +34,7 @@ const creatorSchema = new mongoose.Schema({
     ],
 
     following: [
-        {type: mongoose.Schema.Types.ObjectId, ref: "Creator" }
+        {type: mongoose.Schema.Types.ObjectId, ref: "Creator", index:true }
     ],
 
     isAdmin: { 
