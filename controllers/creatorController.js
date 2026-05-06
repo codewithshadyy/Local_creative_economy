@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
              return res.status(400).json({messAGE:"INVALID CREDENTIALS"})
         } 
         const token = await generateToken(creator)
-        console.log(token)
+        
 
         return res.status(200).json({
             message:`welcome back ${creator.username}`,
