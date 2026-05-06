@@ -5,7 +5,7 @@ const {protect} = require("../middlewares/protect")
 const postLimit = require("../security/postLimit")
 
 router.post("/create",protect, postLimit,createPost)
-router.get("/getPosts/:id", protect, getSinglePost)
+router.get("/getPosts/:id",  getSinglePost)
 router.get("/getPosts", protect, getAllPost)
 router.put("/updatePosts/:id", protect,updatePost )
 router.delete("/deletePost/:id", protect, deletePost)
