@@ -6,6 +6,7 @@ const app = express()
 const dotenv = require("dotenv")
 const limitApplication = require("./security/limit")
 
+
 // Routes
 const creatorRoutes = require("./routes/creatorRoutes")
 const postRoutes = require("./routes/postRoutes")
@@ -13,6 +14,7 @@ const profileRoutes = require("./routes/profileRoutes")
 const tlRoutes = require("./routes/tlRoutes")
 const swaggerDoc = require("./documentation/docs")
 const swaggerUi = require('swagger-ui-express');
+
 
 // env variables configuration
 dotenv.config()
@@ -36,7 +38,7 @@ app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 
 // routes configurations
-
+app.use("api/"  , limitApplication)
 app.use("/api/v1", creatorRoutes)
 app.use("/api/v1/posts", postRoutes)
 app.use("/api/v1/profiles", profileRoutes)

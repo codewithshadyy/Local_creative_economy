@@ -17,8 +17,8 @@ scenarios:
       - post:
           url: "/api/v1/creator/login"
           json:
-            email: "testuser@gmail.com"
-            password: "password123"
+            username: "shadie"
+            password: "shadie10"
           capture:
             - json: "$.token"
               as: "authToken"
