@@ -22,7 +22,7 @@ dotenv.config()
 
 // middlewares
 app.use(express.json())
-app.use(limitApplication)
+
 
 
 // db connection
@@ -35,6 +35,10 @@ mongoose.connect(process.env.MONGODB_URI)
 // vercel configuration 
 
 app.set("trust proxy", 1)
+
+
+// limit the application
+app.use(limitApplication)
 
 // docs configuration
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
