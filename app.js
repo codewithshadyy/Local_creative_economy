@@ -7,7 +7,7 @@ const dotenv = require("dotenv")
 const limitApplication = require("./security/limit")
 const morgan = require("morgan")
 const mongooseMorgan = require("mongoose-morgan")
-const accessLogStream = require("./logs/logStream")
+
 
 
 // Routes
@@ -17,7 +17,7 @@ const profileRoutes = require("./routes/profileRoutes")
 const tlRoutes = require("./routes/tlRoutes")
 const swaggerDoc = require("./documentation/docs")
 const swaggerUi = require('swagger-ui-express');
-const { collection } = require("./models/Creator")
+
 
 
 // env variables configuration
@@ -45,12 +45,9 @@ app.set("trust proxy", 1)
 app.use(limitApplication)
 
 // adding morgan for logs
-app.use(mongooseMorgan({
-    connectionString:process.env.MONGODB_URI,
-    collection:user_logs
-}, {}, "combined"
+
     
-))
+
 
 // docs configuration
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
