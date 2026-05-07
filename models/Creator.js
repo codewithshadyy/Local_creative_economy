@@ -25,6 +25,11 @@ const creatorSchema = new mongoose.Schema({
         required:true,
         
     },
+    role:{
+        type:String,
+        enum :["creator", "admin"],
+        default:"creator"
+    },
     profilePicture: { 
         type: String,
          default: "" 
