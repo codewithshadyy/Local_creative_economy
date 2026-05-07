@@ -7,3 +7,9 @@ const logsDir =path.join(process.cwd(), "logs")
 if(!fs.existsSync(logsDir)){
     fs.mkdirSync(logsDir, { recursive: true })
 }
+
+exports.accessLogStream = fs.createWriteStream(
+    path.join(logsDir, "access.log"),
+  { flags: "a" }
+)
+
