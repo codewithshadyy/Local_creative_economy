@@ -5,6 +5,8 @@ const express = require("express")
 const app = express()
 const dotenv = require("dotenv")
 const limitApplication = require("./security/limit")
+const morgan = require("morgan")
+const accessLogStream = require("./logs/logStream")
 
 
 // Routes
@@ -39,6 +41,9 @@ app.set("trust proxy", 1)
 
 // limit the application
 app.use(limitApplication)
+
+// adding morgan for logs
+app.use(morgan("combined", {stream:accessLogStream}))
 
 // docs configuration
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
