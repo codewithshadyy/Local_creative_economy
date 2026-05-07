@@ -7,6 +7,7 @@ const dotenv = require("dotenv")
 const limitApplication = require("./security/limit")
 const morgan = require("morgan")
 const mongooseMorgan = require("mongoose-morgan")
+const accessLogStream = require("./logger")
 
 
 
@@ -46,7 +47,20 @@ app.use(limitApplication)
 
 // adding morgan for logs
 
-    
+
+morgan.token("creator", (req) => {
+  return req.creator?.username || "Guest";
+});
+
+app.use(
+  morgan(":method :url :status :response-time ms :user", {
+    stream: accessLogStream,
+  })
+);
+
+
+
+//    app.use(morgan("combined", {stream:accessLogStream})) 
 
 
 // docs configuration
