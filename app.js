@@ -7,7 +7,7 @@ const dotenv = require("dotenv")
 const limitApplication = require("./security/limit")
 const morgan = require("morgan")
 const mongooseMorgan = require("mongoose-morgan")
-const accessLogStream = require("./logger")
+const accessLogStream = require("./logs/logger")
 
 
 
@@ -45,22 +45,11 @@ app.set("trust proxy", 1)
 // limit the application
 app.use(limitApplication)
 
-// adding morgan for logs
-
-
-morgan.token("creator", (req) => {
-  return req.creator?.username || "Guest";
-});
-
-app.use(
-  morgan(":method :url :status :response-time ms :user", {
-    stream: accessLogStream,
-  })
-);
+app.use(morgan("combined", {stream:accessLogStream}))
 
 
 
-//    app.use(morgan("combined", {stream:accessLogStream})) 
+  
 
 
 // docs configuration
@@ -76,24 +65,7 @@ app.use("/api/v1/profiles", profileRoutes)
 app.use("/api/v1/feeds", tlRoutes)
 
 
-// getting lgs route
-app.get("/api/logs", async (req, res) => {
-  try {
-    const logsPath = path.join(logsDir, "access.log");
 
-    const logs = fs.readFileSync(logsPath, "utf8");
-
-    res.status(200).json({
-      success: true,
-      logs,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-});
 
 
 
