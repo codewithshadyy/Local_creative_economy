@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
 
         const creator = await Creator.findOne({username})
         if(!creator){
-            return res.status(404).json({message:"Invalid creator"})
+            return res.status(404).json({message:"Creator not Found"})
         }
         const passwordMatch = await bcrypt.compare(password, creator.password)
 

@@ -46,6 +46,20 @@ app.set("trust proxy", 1)
 // limit the application
 app.use(limitApplication)
 
+
+// morgan
+morgan((tokens, req, res) => {
+  return JSON.stringify({
+    method: tokens.method(req, res),
+    url: tokens.url(req, res),
+    status: tokens.status(req, res),
+    responseTime: tokens["response-time"](req, res),
+    date: tokens.date(req, res),
+  });
+});
+
+
+
 app.use(morgan(
   "combined",
   {stream:accessLogStream}

@@ -2,6 +2,7 @@
 
 const fs = require("fs")
 const path = require("path")
+const { success } = require("zod")
 exports.getLogs = async (req,res) => {
 
     try {
@@ -38,4 +39,36 @@ exports.getLogs = async (req,res) => {
         
     }
     
+}
+
+exports.deleteLogs = async (req, res) => {
+  try {
+     const logPath = path.join(__dirname, "../logs/userlogs/access.log")
+     fs.writeFile(logs, "", (er) =>{
+      if(err){
+        res.status(400).json({
+          success:false,
+          message:"Failed to clear logs",
+          err :err.message
+        })
+      }
+      
+      
+      res.status(200).json({
+        success: true,
+        message: "Logs cleared successfully",
+      });
+      
+      
+     })
+
+    
+  } catch (error) {
+    res.status(500).json({
+      success:false,
+      message:error.message
+    })
+    
+  }
+  
 }
