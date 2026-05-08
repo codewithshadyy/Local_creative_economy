@@ -43,8 +43,8 @@ exports.getLogs = async (req,res) => {
 
 exports.deleteLogs = async (req, res) => {
   try {
-     const logPath = path.join(__dirname, "../logs/userlogs/access.log")
-     fs.writeFile(logs, "", (er) =>{
+     const logsPath = path.join(__dirname, "../logs/userlogs/access.log")
+     fs.writeFile(logsPath, "", (err) =>{
       if(err){
         res.status(400).json({
           success:false,

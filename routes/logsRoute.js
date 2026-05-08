@@ -4,7 +4,7 @@ const { getLogs, deleteLogs } = require("../controllers/logsController")
 
 
 router.get("/logs", getLogs)
-router.delete("delete/logs", deleteLogs)
+router.delete("/delete/logs", deleteLogs)
 
 
 module.exports = router
