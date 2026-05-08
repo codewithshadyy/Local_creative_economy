@@ -45,7 +45,10 @@ app.set("trust proxy", 1)
 // limit the application
 app.use(limitApplication)
 
-app.use(morgan("combined", {stream:accessLogStream}))
+app.use(morgan(
+  "combined",
+  {stream:accessLogStream}
+))
 
 
 

@@ -1,0 +1,1 @@
+::1 - - [08/May/2026:10:20:14 +0000] "GET /api/v1/posts/getPosts HTTP/1.1" 200 1618 "-" "PostmanRuntime/7.54.0"
