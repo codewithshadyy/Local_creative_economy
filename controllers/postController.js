@@ -5,6 +5,12 @@ const creator = require("../models/Creator")
 const Profile = require("../models/Profile")
 
 
+// setting up caching packages
+const redis = require("redis")
+const client = redis.createClient()
+client.connect()
+
+
 // creating post route
 exports.createPost = async (req,res) => {
 
