@@ -24,3 +24,4 @@
 ::1 - - [09/May/2026:19:58:56 +0000] "DELETE /api/v1/posts/deletePost/69ff8db734801a20a6864ae7 HTTP/1.1" 401 31 "-" "PostmanRuntime/7.54.0"
 ::1 - - [09/May/2026:20:00:34 +0000] "DELETE /api/v1/profiles/me HTTP/1.1" 404 160 "-" "PostmanRuntime/7.54.0"
 ::1 - - [09/May/2026:20:00:42 +0000] "GET /api/v1/profiles/me HTTP/1.1" 500 37 "-" "PostmanRuntime/7.54.0"
+::1 - - [09/May/2026:20:21:50 +0000] "GET /api/v1/posts/getPosts HTTP/1.1" 401 28 "-" "PostmanRuntime/7.54.0"

@@ -67,6 +67,15 @@ exports.getAllPost = async (req,res) => {
 
     try {
 
+        const cachedPosts = await client.get("posts")
+
+        if(cachedPosts){
+            return res.json(
+                json.parse(cachedPosts)
+            )
+        }
+
+
 
         const page = parseInt(req.params.page) || 0
 
@@ -81,6 +90,15 @@ exports.getAllPost = async (req,res) => {
         .sort({createdAt:-1})
         .skip(page * limit)
         .limit(limit)
+
+
+    await client.set(
+        "posts",
+        JSON.stringify(posts),
+        {
+            EX: 60
+        }
+    );
 
         res.status(200).json(posts)
         
