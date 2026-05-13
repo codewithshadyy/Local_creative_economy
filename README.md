@@ -116,7 +116,7 @@ socialsphere/
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/codewithshadyy/local_creative_economy.git
+git clone https://github.com/codewithshadyy/socialSphere.git
 ```
 
 ---
