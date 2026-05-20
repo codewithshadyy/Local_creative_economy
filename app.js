@@ -6,7 +6,6 @@ const app = express()
 const dotenv = require("dotenv")
 const limitApplication = require("./security/limit")
 const morgan = require("morgan")
-const mongooseMorgan = require("mongoose-morgan")
 const accessLogStream = require("./logs/logger")
 
 
@@ -19,6 +18,7 @@ const tlRoutes = require("./routes/tlRoutes")
 const swaggerDoc = require("./documentation/docs")
 const swaggerUi = require('swagger-ui-express');
 const logRoutes = require("./routes/logsRoute")
+const paymentRoutes = require("./routes/paymentRoutes")
 
 
 
@@ -82,6 +82,7 @@ app.use("/api/v1/admin", logRoutes)
 app.use("/api/v1/posts", postRoutes)
 app.use("/api/v1/profiles", profileRoutes)
 app.use("/api/v1/feeds", tlRoutes)
+app.use("/api/v1/pay", paymentRoutes)
 
 
 
