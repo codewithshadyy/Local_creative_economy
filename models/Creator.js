@@ -31,31 +31,6 @@ const creatorSchema = new mongoose.Schema({
         default:"creator"
     },
 
-subscription: {
-    status: {
-        type: String,
-        enum: ["free", "paid"],
-        default: "free"
-    },
-
-    amount: {
-        type: Number,
-        default: 0
-    },
-
-    transactionId: {
-        type: String,
-        default: ""
-    },
-
-    paidAt: {
-        type: Date
-    },
-
-    expiresAt: {
-        type: Date
-    }
-},
 
 
     profilePicture: { 
