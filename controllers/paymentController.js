@@ -2,6 +2,8 @@ const Transcation = require("../models/Transaction")
 const getMpesaToken = require("../utils/mpesaToken")
 const axios = require("axios")
 const moment = require("moment")
+require("dotenv").config()
+
 
 
 exports.stkPush = async (req,res) => {
@@ -10,6 +12,8 @@ exports.stkPush = async (req,res) => {
     try {
           const token = await getMpesaToken()
           const timestamp = moment().format("YYYYMMDDHHmmss")
+
+          console.log(token)
 
           const password = Buffer.from(
             process.env.SHORTCODE +
@@ -24,13 +28,13 @@ exports.stkPush = async (req,res) => {
           const response = await axios.get(
             "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
             {
-                BusinessShortCode: process.env.MPESA_SHORTCODE,
+                BusinessShortCode: process.env.SHORTCODE,
                 Password: password,
                 Timestamp: timestamp,
                 TransactionType: "CustomerPayBillOnline",
                 Amount: 10,
                 PartyA: req.body.phone,
-                PartyB: process.env.MPESA_SHORTCODE,
+                PartyB: process.env.SHORTCODE,
                 PhoneNumber: req.body.phone,
                 CallBackURL: process.env.CALLBACK_URL,
                 AccountReference: "SocialSphere",
@@ -49,9 +53,15 @@ exports.stkPush = async (req,res) => {
 
 
         
-    } catch (error) {
+    } catch (err) {
 
-        res.status(500).json({message:error.message})
+       
+
+    return res.status(500).json({
+        message: err.message,
+        status: err.response?.status,
+        data: err.response?.data
+    })
         
     }
 }
