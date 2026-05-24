@@ -14,6 +14,7 @@ SocialSphere is a scalable social networking platform where users can:
 - Follow other users
 - View personalized timeline feeds
 - Manage profiles
+- daraja api intergration
 
 
 This project focuses heavily on:
@@ -22,6 +23,7 @@ This project focuses heavily on:
 - API design
 - authentication systems
 - performance optimization
+-ApI security
 
 ---
 

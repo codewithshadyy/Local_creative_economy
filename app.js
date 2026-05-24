@@ -95,7 +95,7 @@ app.use("/api/v1/pay", paymentRoutes)
 
 // /port listening
 
-// app.listen(process.env.PORT, ()=>{console.log(`http://localhost:${process.env.PORT}`)})
+app.listen(process.env.PORT, ()=>{console.log(`http://localhost:${process.env.PORT}`)})
 
 
 module.exports = app
