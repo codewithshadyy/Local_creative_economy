@@ -30,6 +30,9 @@ const creatorSchema = new mongoose.Schema({
         enum :["creator", "admin"],
         default:"creator"
     },
+
+
+
     profilePicture: { 
         type: String,
          default: "" 
