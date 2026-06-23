@@ -8,7 +8,7 @@ const {adminOnly} = require("../middlewares/adminMiddleware")
 
 
 router.get("/logs",protect,adminOnly, getLogs)
-router.delete("/delete/logs", protect, adminOnly, deleteLogs)
+router.delete("/logs/delete", protect, adminOnly, deleteLogs)
 
 
 module.exports = router
