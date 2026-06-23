@@ -11,14 +11,14 @@ const accessLogStream = require("./logs/logger")
 
 
 // Routes
-const creatorRoutes = require("./routes/creatorRoutes")
-const postRoutes = require("./routes/postRoutes")
-const profileRoutes = require("./routes/profileRoutes")
-const tlRoutes = require("./routes/tlRoutes")
+const creatorRoutes = require("./routes/creators")
+const postRoutes = require("./routes/posts")
+const profileRoutes = require("./routes/profiles")
+const tlRoutes = require("./routes/timeline")
 const swaggerDoc = require("./documentation/docs")
 const swaggerUi = require('swagger-ui-express');
-const logRoutes = require("./routes/logsRoute")
-const paymentRoutes = require("./routes/paymentRoutes")
+const logRoutes = require("./routes/logs")
+
 
 
 
@@ -82,7 +82,7 @@ app.use("/api/v1/admin", logRoutes)
 app.use("/api/v1/posts", postRoutes)
 app.use("/api/v1/profiles", profileRoutes)
 app.use("/api/v1/feeds", tlRoutes)
-app.use("/api/v1/pay", paymentRoutes)
+
 
 
 
