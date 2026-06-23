@@ -9,7 +9,7 @@ exports.generateToken = async (creator) => {
             id:creator._id,
             role:creator.role,
              username:creator.username
-            }, process.env.JWT_SECRET, {expiresIn:"15m"})
+            }, process.env.JWT_SECRET, {expiresIn:"7d"})
     
 }
 
