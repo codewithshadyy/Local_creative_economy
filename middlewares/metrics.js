@@ -1,9 +1,9 @@
 
 
 const express = require("express")
-const app = require("../app")
 
-app = express()
+
+const app = express()
 
 exports.metrics = app.use((req, res, next) => {
   const end = httpRequestDurationMicroseconds.startTimer();

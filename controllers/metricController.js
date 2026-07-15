@@ -3,9 +3,9 @@ const express  = require("express")
 const client = require("prom-client")
 
 
-const regiser = new client.Registry()
+const register = new client.Registry()
 
-regiser.setDefaultLabels({
+register.setDefaultLabels({
     app:"node js-monitoring"
 })
 
@@ -19,7 +19,7 @@ const httpRequestDurationMicroseconds = new client.Histogram({
 });
 
 
-exports.metrics = async (req, res) => {
+exports.seeMetrics = async (req, res) => {
 
      res.set('Content-Type', register.contentType);
   res.end(await register.metrics());
