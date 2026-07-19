@@ -6,8 +6,8 @@ const {protect} = require("../middlewares/protect")
 
 
 
-router.post("/creators/register", register)
-router.post("/creators/login", loginLimiter, login)
+router.post("register", register)
+router.post("login", loginLimiter, login)
 router.get("/creators",protect, findCreators)
 router.post("/refresh",  refresh)
 
