@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
         })
 
         if(creatorExists){
-            return res.status(400).json({message:"Oops tryanother email,looks llike the one provided has been taken"})
+            return res.status(400).json({message:"Oops try another email,looks llike the one provided has been taken"})
         }
 
 
