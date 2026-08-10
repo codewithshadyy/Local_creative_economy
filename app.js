@@ -11,13 +11,13 @@ const accessLogStream = require("./logs/logger")
 
 
 // Routes
-const creatorRoutes = require("./routes/creatorRoutes")
-const postRoutes = require("./routes/postRoutes")
-const profileRoutes = require("./routes/profileRoutes")
-const tlRoutes = require("./routes/tlRoutes")
+const creatorRoutes = require("./routes/creators")
+const postRoutes = require("./routes/posts")
+const profileRoutes = require("./routes/profiles")
+const tlRoutes = require("./routes/timeline")
 const swaggerDoc = require("./documentation/docs")
 const swaggerUi = require('swagger-ui-express');
-const logRoutes = require("./routes/logsRoute")
+const logRoutes = require("./routes/logs")
 
 
 
