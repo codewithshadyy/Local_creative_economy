@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
         })
 
         if(creatorExists){
-            return res.status(400).json({message:"Oops tryanother email,looks llike the one provided has been taken"})
+            return res.status(400).json({message:"Oops try another email,looks llike the one provided has been taken"})
         }
 
 
@@ -32,7 +32,6 @@ exports.register = async (req, res) => {
 
         res.status(201).json({
             message:`${creator.email} created successfully`,
-            token,
             creator:{
                 id:creator._id,
                 username:creator.username,
@@ -69,11 +68,11 @@ exports.login = async (req, res) => {
              return res.status(400).json({messAGE:"INVALID CREDENTIALS"})
         } 
         const accessToken = await generateToken(creator)
-        const refereshToken = await generateRefreshToken(creator)
+        const refreshToken = await generateRefreshToken(creator)
 
         creator.save()
 
-        res.cookie("refreshToken", refereshToken,{
+        res.cookie("refreshToken", refreshToken,{
             httpOnly:true,
             secure:true,
             sameSite:"Strict"
@@ -83,6 +82,7 @@ exports.login = async (req, res) => {
         return res.status(200).json({
             message:`welcome back ${creator.username}`,
             accessToken,
+            refreshToken,
             creator: {
             id:creator._id,
             username:creator.username,
@@ -97,7 +97,9 @@ exports.login = async (req, res) => {
         
         
     } catch (error) {
+         console.log(error)
         return res.status(500).json({error:error.message})
+       
         
     }
     
