@@ -18,7 +18,7 @@ const tlRoutes = require("./routes/timeline")
 const swaggerDoc = require("./documentation/docs")
 const swaggerUi = require('swagger-ui-express');
 const logRoutes = require("./routes/logs")
-
+const metricsRoute = require("./routes/metrics")
 
 
 
@@ -77,11 +77,12 @@ app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 // routes configurations
 app.use("api/"  , limitApplication)
-app.use("/api/v1", creatorRoutes)
+app.use("/api/v1/auth", creatorRoutes)
 app.use("/api/v1/admin", logRoutes)
 app.use("/api/v1/posts", postRoutes)
 app.use("/api/v1/profiles", profileRoutes)
 app.use("/api/v1/feeds", tlRoutes)
+app.use("/api/v1/obs/", metricsRoute)
 
 
 
