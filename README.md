@@ -1,4 +1,4 @@
-# 🚀 SocialSphere — Modern Social Media Platform
+# SocialSphere — Modern Social Media API
 
 A full-stack social media platform built with scalable backend architecture.
 Designed with production-level engineering concepts including authentication, timeline feeds, profile systems, replies, likes, follow mechanics, pagination, protected routes and  optimized queries.
@@ -6,7 +6,7 @@ Designed with production-level engineering concepts including authentication, ti
 
 # 🌍 Overview
 
-SocialSphere is a scalable social networking platform where users can:
+SocialSphere is a scalable social networking platform/API where users can:
 
 - Create accounts securely
 - Publish posts
