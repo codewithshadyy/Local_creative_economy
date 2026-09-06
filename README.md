@@ -6,7 +6,7 @@ Designed with production-level engineering concepts including authentication, ti
 
 # 🌍 Overview
 
-SocialSphere is a scalable social networking platform where users can:
+SocialSphere is a scalable social networking platform/API where users can:
 
 - Create accounts securely
 - Publish posts
