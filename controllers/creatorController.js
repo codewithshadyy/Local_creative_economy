@@ -5,6 +5,7 @@ const { generateToken, generateRefreshToken} = require("../middlewares/tokenGene
 
 
 exports.register = async (req, res) => {
+    
 
     try {
         const {username, email, password} = req.body;
